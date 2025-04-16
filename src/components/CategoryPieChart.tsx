@@ -1,4 +1,3 @@
-// src/components/CategoryPieChart.tsx
 'use client';
 
 import React from 'react';
@@ -14,12 +13,20 @@ interface CategoryPieChartProps {
   data: CategoryExpense[];
 }
 
-const COLORS = ['#0088FE', '#00C49F', '#FFBB28', '#FF8042', '#8884d8', '#82ca9d']; // Default colors
-
 const CategoryPieChart: React.FC<CategoryPieChartProps> = ({ data }) => {
-  const total = data.reduce((sum, entry) => sum + entry.value, 0);
+  const COLORS = ['#0088FE', '#00C49F', '#FFBB28', '#FF8042', '#8884d8', '#82ca9d']; // Default colors
 
-  const renderCustomizedLabel = ({ cx, cy, midAngle, innerRadius, outerRadius, percent, index }: any) => {
+  interface CustomLabelProps {
+    cx: number;
+    cy: number;
+    midAngle: number;
+    outerRadius: number;
+    percent: number;
+    index: number;
+  }
+
+  const renderCustomizedLabel = (props: CustomLabelProps) => {
+    const { cx, cy, midAngle, outerRadius, percent } = props;
     const radius = outerRadius + 20;
     const x = cx + radius * Math.cos(-midAngle * (Math.PI / 180));
     const y = cy + radius * Math.sin(-midAngle * (Math.PI / 180));
